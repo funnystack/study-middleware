@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funny.combo.tools.dao.mapper.UnitRobotWordsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.funny.combo.tools.dao.entity.UnitRobotWordsEntity">
+        <id column="id" property="id" />
+        <result column="created_stime" property="createdStime" />
+        <result column="modified_stime" property="modifiedStime" />
+        <result column="is_del" property="isDel" />
+        <result column="unit_robot" property="unitRobot" />
+        <result column="biz_tenant_id" property="bizTenantId" />
+        <result column="words" property="words" />
+        <result column="words_type" property="wordsType" />
+        <result column="words_hash" property="wordsHash" />
+        <result column="dynamic" property="dynamic" />
+        <result column="human_audio_url" property="humanAudioUrl" />
+        <result column="tts_audio_url" property="ttsAudioUrl" />
+        <result column="voice_num" property="voiceNum" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, created_stime, modified_stime, is_del,biz_tenant_id, unit_robot, words, words_type, words_hash, dynamic, human_audio_url, tts_audio_url, voice_num
+    </sql>
+
+</mapper>

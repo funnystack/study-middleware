@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funny.combo.tools.dao.mapper.UnitRobotMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.funny.combo.tools.dao.entity.UnitRobotEntity">
+        <id column="id" property="id" />
+        <result column="created_stime" property="createdStime" />
+        <result column="modified_stime" property="modifiedStime" />
+        <result column="is_del" property="isDel" />
+        <result column="biz_tenant_id" property="bizTenantId" />
+        <result column="robot_name" property="robotName" />
+        <result column="unit_robot" property="unitRobot" />
+        <result column="unit_file" property="unitFile" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, created_stime, modified_stime, is_del, biz_tenant_id, robot_name, unit_robot, unit_file
+    </sql>
+
+</mapper>

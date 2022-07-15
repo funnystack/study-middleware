@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.funny.combo.tools.dao.mapper.SoftPhoneMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.funny.combo.tools.dao.entity.SoftPhoneEntity">
+        <id column="id" property="id" />
+        <result column="freeswitch_host" property="freeswitchHost" />
+        <result column="extension_no" property="extensionNo" />
+        <result column="extension_user_name" property="extensionUserName" />
+        <result column="extension_pwd" property="extensionPwd" />
+        <result column="call_to" property="callTo" />
+        <result column="register_status" property="registerStatus" />
+        <result column="work_status" property="workStatus" />
+        <result column="created_stime" property="createdStime" />
+        <result column="modified_stime" property="modifiedStime" />
+        <result column="is_del" property="isDel" />
+        <result column="distribution_key" property="distributionKey" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, freeswitch_host, extension_no, extension_user_name, extension_pwd, call_to, register_status, work_status, created_stime, modified_stime, is_del,distribution_key
+    </sql>
+
+
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" useGeneratedKeys="true"
+            parameterType="com.funny.combo.tools.dao.entity.SoftPhoneEntity">
+        insert into soft_phone
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="freeswitchHost != null">
+                freeswitch_host,
+            </if>
+            <if test="extensionNo != null">
+                extension_no,
+            </if>
+            <if test="extensionUserName != null">
+                extension_user_name,
+            </if>
+            <if test="extensionPwd != null">
+                extension_pwd,
+            </if>
+            <if test="callTo != null">
+                call_to,
+            </if>
+            <if test="registerStatus != null">
+                register_status,
+            </if>
+            <if test="workStatus != null">
+                work_status,
+            </if>
+            <if test="createdStime != null">
+                created_stime,
+            </if>
+            <if test="modifiedStime != null">
+                modified_stime,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="distributionKey != null">
+                distribution_key,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="freeswitchHost != null">
+                #{freeswitchHost,jdbcType=VARCHAR},
+            </if>
+            <if test="extensionNo != null">
+                #{extensionNo,jdbcType=VARCHAR},
+            </if>
+            <if test="extensionUserName != null">
+                #{extensionUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="extensionPwd != null">
+                #{extensionPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="callTo != null">
+                #{callTo,jdbcType=VARCHAR},
+            </if>
+            <if test="registerStatus != null">
+                #{registerStatus,jdbcType=INTEGER},
+            </if>
+            <if test="workStatus != null">
+                #{workStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createdStime != null">
+                #{createdStime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifiedStime != null">
+                #{modifiedStime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="distributionKey != null">
+                #{distributionKey,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.funny.combo.tools.dao.entity.SoftPhoneEntity">
+        update soft_phone
+        <set>
+            <if test="freeswitchHost != null">
+                freeswitch_host = #{freeswitchHost,jdbcType=VARCHAR},
+            </if>
+            <if test="extensionNo != null">
+                extension_no = #{extensionNo,jdbcType=VARCHAR},
+            </if>
+            <if test="extensionUserName != null">
+                extension_user_name = #{extensionUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="extensionPwd != null">
+                extension_pwd = #{extensionPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="callTo != null">
+                call_to = #{callTo,jdbcType=VARCHAR},
+            </if>
+            <if test="registerStatus != null">
+                register_status = #{registerStatus,jdbcType=INTEGER},
+            </if>
+            <if test="workStatus != null">
+                work_status = #{workStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createdStime != null">
+                created_stime = #{createdStime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifiedStime != null">
+                modified_stime = #{modifiedStime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=TINYINT},
+            </if>
+            <if test="distributionKey != null">
+                distribution_key= #{distributionKey,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteByExtensionNo" parameterType="java.lang.String">
+        delete from soft_phone where extension_no= #{extensionNo,jdbcType=VARCHAR} and is_del=0
+    </delete>
+
+
+    <select id="selectOneByEntity" parameterType="com.funny.combo.tools.dao.entity.SoftPhoneEntity"
+    resultType="com.funny.combo.tools.dao.entity.SoftPhoneEntity">
+
+        select
+        <include refid="Base_Column_List"/>
+
+         from soft_phone where 1=1
+
+        <if test="id != null">
+           and id= #{id,jdbcType=INTEGER}
+        </if>
+
+        <if test="freeswitchHost != null">
+            and freeswitch_host= #{freeswitchHost,jdbcType=VARCHAR}
+        </if>
+        <if test="extensionNo != null">
+            and extension_no= #{extensionNo,jdbcType=VARCHAR}
+        </if>
+        <if test="extensionUserName != null">
+            and extension_user_name= #{extensionUserName,jdbcType=VARCHAR}
+        </if>
+        <if test="extensionPwd != null">
+            and extension_pwd= #{extensionPwd,jdbcType=VARCHAR}
+        </if>
+        <if test="callTo != null">
+            and call_to= #{callTo,jdbcType=VARCHAR}
+        </if>
+        <if test="registerStatus != null">
+            and register_status= #{registerStatus,jdbcType=INTEGER}
+        </if>
+        <if test="workStatus != null">
+            and work_status= #{workStatus,jdbcType=INTEGER}
+        </if>
+        <if test="createdStime != null">
+            and created_stime=  #{createdStime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="modifiedStime != null">
+            and modified_stime= #{modifiedStime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="isDel != null">
+            and is_del= #{isDel,jdbcType=TINYINT}
+        </if>
+        <if test="distributionKey != null">
+            and distribution_key= #{distributionKey,jdbcType=VARCHAR}
+        </if>
+
+
+    </select>
+
+
+</mapper>
