@@ -1,19 +1,22 @@
-package com.funny.study.kafka;
+package com.funny.study.kafka.kafka;
 
+import com.funny.study.kafka.util.SpringUtils;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
+import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+@Component
 public class KafkaSender {
     private static final Logger logger = LoggerFactory.getLogger(KafkaSender.class);
-
-
-    public static void sendSync(String topic, String message) {
+    public void sendSync(String topic, String message) {
         try {
-            ListenableFuture<SendResult<String, String>> send = KafkaConfig.kafkaTemplate.send(topic, message);
+            KafkaTemplate kafkaTemplate = SpringUtils.getBean(KafkaTemplate.class);
+            ListenableFuture<SendResult<String, String>> send = kafkaTemplate.send(topic, message);
             SendResult<String, String> result = send.get();
             RecordMetadata metadata = result.getRecordMetadata();
             logger.info("send kafka end,topic={},partition={},offset={}", topic, metadata.partition(), metadata.offset());
@@ -23,8 +26,9 @@ public class KafkaSender {
     }
 
 
-    public static void sendAsync(String topic, String message) {
-        ListenableFuture<SendResult<String, String>> future = KafkaConfig.kafkaTemplate.send(topic, message);
+    public void sendAsync(String topic, String message) {
+        KafkaTemplate kafkaTemplate = SpringUtils.getBean(KafkaTemplate.class);
+        ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, message);
         future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
             //发送消息成功回调
             @Override
@@ -42,5 +46,4 @@ public class KafkaSender {
         });
 
     }
-
 }

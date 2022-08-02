@@ -1,4 +1,4 @@
-package com.funny.study.kafka;
+package com.funny.study.kafka.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -13,25 +13,24 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+@Configuration
+@EnableKafka
 public class KafkaConfig {
-    private static String kafkaServers ="kafka1.com:9092,kafka2.com:9092,kafka3.com:9092";
-    private static int kafkaRetries = 0;
-    private static int kafkaBatchSize = 16384;
-    private static int kafkaBufferMemory = 33554432;
 
-    public static KafkaTemplate<String, String> kafkaTemplate = null;
+    @Value("${spring.kafka.bootstrap-servers}")
+    private String bootstrapServers;
+    @Value("${spring.kafka.producer.retries}")
+    private int retries;
+    @Value("${spring.kafka.producer.batch-size}")
+    private int batchSize;
+    @Value("${spring.kafka.producer.buffer-memory}")
+    private int bufferMemory;
 
-    static {
-        kafkaTemplate = new KafkaTemplate<>(producerFactory());
+    public Map<String, Object> travelCpmpareProducerConfigs() {
+        return getStringObjectMap(bootstrapServers, retries, batchSize, bufferMemory);
     }
 
-
-
-    private static Map<String, Object> kafkaConfigs() {
-        return getStringObjectMap(kafkaServers, kafkaRetries, kafkaBatchSize, kafkaBufferMemory);
-    }
-
-    private static Map<String, Object> getStringObjectMap(String stockServers, int stockRetries, int stockBatchSize, int stockBufferMemory) {
+    private Map<String, Object> getStringObjectMap(String stockServers, int stockRetries, int stockBatchSize, int stockBufferMemory) {
         Map<String, Object> props = new HashMap<>(7);
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, stockServers);
         props.put(ProducerConfig.RETRIES_CONFIG, stockRetries);
@@ -42,7 +41,14 @@ public class KafkaConfig {
         return props;
     }
 
-    private static ProducerFactory<String, String> producerFactory() {
-        return new DefaultKafkaProducerFactory<>(kafkaConfigs());
+    public ProducerFactory<String, String> producerFactory() {
+        return new DefaultKafkaProducerFactory<>(travelCpmpareProducerConfigs());
     }
+
+    @Bean
+    public KafkaTemplate<String, String> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
+
+
 }

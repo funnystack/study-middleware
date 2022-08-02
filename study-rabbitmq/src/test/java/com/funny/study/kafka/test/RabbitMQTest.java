@@ -1,4 +1,4 @@
-package com.funny.study.test;
+package com.funny.study.kafka.test;
 
 import com.funny.study.rabbitmq.MQReceiver;
 import com.funny.study.rabbitmq.MQSender;

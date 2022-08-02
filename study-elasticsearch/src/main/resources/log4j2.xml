@@ -2,8 +2,8 @@
 <configuration status="OFF">
     <properties>
         <!-- APP_NAME 严禁使用 - 符号，影响日志切分-->
-        <property name="APP_NAME">tools</property>
-        <property name="LOG_HOME">/data/logs/combo-tools</property>
+        <property name="APP_NAME">es</property>
+        <property name="LOG_HOME">${user.home}/logs/es</property>
         <property name="LOG_PATTERN">%d{YYYY/MM/dd-HH:mm:ss.SSS} %thread %level %X{unique} %class %method %m%n
         </property>
     </properties>
