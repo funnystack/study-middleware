@@ -1,0 +1,32 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: study-kafka
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    #kafka.producer配置
+    producer:
+      retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+    #kafka.consumer配置
+    consumer:
+      group-id: consumer-group
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 10
+      properties:
+        max.poll.interval.ms: 600000
+    listener:
+      concurrency: 1
+      ack-mode: manual_immediate
+      poll-timeout: 1000
+kafka:
+  topic:
+    user_address: user_address

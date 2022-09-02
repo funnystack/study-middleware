@@ -1,11 +1,13 @@
-package com.funny.study.cache.redis;
+package com.funny.study.cache.redis.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
@@ -69,7 +71,12 @@ public class RedisConfig {
 
         return jedisConnectionFactory;
     }
-
+    @Bean
+    RedisMessageListenerContainer container() {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(jedisConnectionFactory());
+        return container;
+    }
     @Bean
     public RedisTemplate redisTemplate() {
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();

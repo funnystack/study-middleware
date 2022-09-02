@@ -1,4 +1,4 @@
-package com.funny.study.cache.redis;
+package com.funny.study.cache.redis.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.redisson.Redisson;
@@ -39,8 +39,8 @@ public class RedisBloomFilter {
 
         RedissonClient client = createClient();
         RBloomFilter<Object> bloomFilter = client.getBloomFilter("bloomFilter");
-
-        bloomFilter.tryInit(10, 0.01);
+        // 初始化布隆过滤器，预计元素为1_000_000,误判率为1%
+        bloomFilter.tryInit(1_000_000, 0.01);
 
         Map<String, String> map = new HashMap<>();
         map.put("aa", "bb");
